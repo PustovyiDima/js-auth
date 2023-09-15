@@ -1,0 +1,41 @@
+@use '../../style' as s;
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: s.space(2);
+
+  &__label {
+    color: s.color(grey);
+    font-size: 14px;
+  }
+
+  &__input {
+    width: 100%;
+    border: 1px solid s.color(box);
+    border-radius: 10px;
+    background: s.color(box);
+    padding: s.space(4);
+
+    &::placeholder {
+      color: s.color(light);
+      font-size: 14px;
+    }
+
+    color: s.color(dark);
+
+    transition: border-color 0.3s;
+
+    &:hover {
+      border-color: s.color(grey);
+    }
+
+    &:focus {
+      border-color: s.color(main);
+    }
+  }
+
+  &--error {
+    color: s.color(red) !important;
+  }
+}

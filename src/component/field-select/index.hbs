@@ -1,0 +1,28 @@
+{{!-- <div class="field__checkbox">
+	<input name="{{name}}" id="{{name}}" class="field__checkbox__input" type="checkbox"
+		onchange="{{action}}(this.name,this.value)">
+	<div class="field__checkbox__icon"></div>
+
+	<label class="field__checkbox__label" for="{{name}}">{{label}}</label>
+</div> --}}
+
+<div class="field field--select">
+	<label class="field__label">{{label}}</label>
+
+	<div class="field__container">
+		<button onclick="
+	fieldSelect.toggle(this);	
+	" type="button" class="field__select">
+			<span class="field__value field__value--placeholder">{{placeholder}}</span>
+			<span class="field__icon"></span>
+		</button>
+		<ul class="field__option-list">
+			{{#each list}}
+			<li onclick="fieldSelect.change(this);
+		{{../action}}('{{../name}}',{{value}});
+			" class="field__option">{{text}}</li>
+			{{/each}}
+		</ul>
+	</div>
+
+</div>

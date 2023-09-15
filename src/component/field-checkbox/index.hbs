@@ -1,0 +1,18 @@
+{{!-- <div class="field__checkbox">
+	<input name="{{name}}" id="{{name}}" class="field__checkbox__input" type="checkbox"
+		onchange="{{action}}(this.name,this.value)">
+	<div class="field__checkbox__icon"></div>
+
+	<label class="field__checkbox__label" for="{{name}}">{{label}}</label>
+</div> --}}
+
+<div class="field field--checkbox">
+	<button onclick="
+	fieldCheckbox.toggle(this);
+
+	{{action}}('{{name}}',this.hasAttribute('active'));
+	" type="button" class="field__wrapper">
+		<span class="field__icon"></span>
+		<span class="field__label field__label--checkbox">{{label}}</span>
+	</button>
+</div>

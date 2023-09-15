@@ -1,0 +1,51 @@
+<div class="page page--background">
+    <header>{{>back-button}}</header>
+
+
+    <form action="" class="page__section">
+        <h1 class="page__title">Реєстрація</h1>
+        <div class="form">
+            <div class="form__item">
+                {{>field action='signupForm.change' label='Ел. пошта' type='email' name='email'
+                placeholder='yourmail@mail.com'}}
+                <span name="email" class="form__error">Помилка</span>
+            </div>
+
+
+
+            <div class="form__item">
+                {{>field-select action='signupForm.change' list=data.role
+                name='role' label='Роль' placeholder='Оберіть роль' }}
+                <span name="role" class="form__error">Помилка</span>
+            </div>
+
+            <div class="form__item">
+                {{>field-password action='signupForm.change' label='Пароль' name='password' }}
+                <span name="password" class="form__error">Помилка</span>
+            </div>
+            {{!-- <div class="form__item">
+                {{>field-password action='signupForm.change' label='Пароль ще раз' name='password' }}
+                <span name="password" class="form__error">Помилка</span>
+            </div> --}}
+
+            <div class="form__item">
+                {{>field-checkbox action='signupForm.change' label='Ви погоджуєтеся з правилами сервіса'
+                name='isConfirm' }}
+                <span name="isConfirm" class="form__error">Помилка</span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <button onclick="signupForm.submit()" class="button" type="button">Зареєструватися</button>
+        <span class="alert alert--error">Увага помилка</span>
+    </form>
+</div>
