@@ -4,6 +4,7 @@ const express = require('express')
 const router = express.Router()
 
 const { User } = require('../class/user')
+const { Confirm } = require('../class/confirm')
 
 User.create({
   email: 'admin@admin.com',
@@ -64,6 +65,15 @@ router.post('/signup', function (req, res) {
   }
 
   try {
+    const user = User.getByEmail(email)
+
+    if (user) {
+      return res.status(400).json({
+        message:
+          'Помилка. Користувач з таким email вже існує',
+      })
+    }
+
     User.create({ email, password, role })
 
     return res.status(200).json({
@@ -76,5 +86,92 @@ router.post('/signup', function (req, res) {
   }
 })
 
+router.get('/recovery', function (req, res) {
+  return res.render('recovery', {
+    name: 'recovery',
+    component: ['back-button', 'field'],
+    tittle: 'Recovery page',
+    data: {},
+  })
+})
+router.post('/recovery', function (req, res) {
+  const { email } = req.body
+
+  if (!email) {
+    return res.status(400).json({
+      message: "Помилка. Обов'язкові поля відсутні",
+    })
+  }
+
+  try {
+    const user = User.getByEmail(email)
+
+    if (!user) {
+      return res.status(400).json({
+        message:
+          'Помилка. Користувача з таким email не існує',
+      })
+    }
+
+    Confirm.create(email)
+
+    return res.status(200).json({
+      message: 'Код для відновлення паролю відправлено',
+    })
+  } catch (error) {
+    return res.status(400).json({ message: error.message })
+  }
+})
+
+router.get('/recovery-confirm', function (req, res) {
+  return res.render('recovery-confirm', {
+    name: 'recovery-confirm',
+    component: ['back-button', 'field', 'field-password'],
+    tittle: 'Recovery Confirm page',
+    data: {},
+  })
+})
+
+router.post('/recovery-confirm', function (req, res) {
+  const { code, password } = req.body
+
+  if (!code || !password) {
+    return res.status(400).json({
+      message: "Помилка. Обов'язкові поля відсутні",
+    })
+  }
+
+  try {
+    const email = Confirm.getData(Number(code))
+    if (!email) {
+      return res.status(400).json({
+        message: 'Помилка. Код не існує',
+      })
+    }
+
+    const user = User.getByEmail(email)
+
+    if (!user) {
+      return res.status(400).json({
+        message:
+          'Помилка. Користувач з таким email не існує',
+      })
+    }
+
+    user.password = password
+
+    console.log(user)
+
+    return res.status(200).json({
+      message: 'Пароль змінено',
+    })
+
+    // ...
+  } catch (error) {
+    return res.status(400).json({ message: error.message })
+  }
+
+  console.log(password, code)
+})
 // Підключаємо роутер до бек-енду
 module.exports = router
