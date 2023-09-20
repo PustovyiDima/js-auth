@@ -5,6 +5,12 @@
   flex-direction: column;
   gap: s.space(3);
 
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: s.space(2);
+  }
+
   &__error {
     color: s.color(red);
     font-size: 12px;
@@ -24,6 +30,21 @@
   background: s.color(main);
   color: s.color(white);
   @include s.click;
+
+  &:active {
+    opacity: 0.3;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: default;
+
+    &:hover,
+    &active {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
 }
 
 .alert {
@@ -45,5 +66,15 @@
   &--progress {
     border-color: s.color(blue);
     color: s.color(blue);
+  }
+
+  &--disabled {
+    display: none;
+  }
+}
+
+.validation {
+  &--active {
+    color: s.color(red) !important;
   }
 }
