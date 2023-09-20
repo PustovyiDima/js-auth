@@ -68,13 +68,12 @@ class SignupForm extends Form {
 
       this.setAlert('progress', 'Завантаження...')
 
-     console.log( this.convertData())
+      // console.log(this.convertData())
 
       try {
-        
         const res = await fetch('/signup', {
           method: 'POST',
-          headers: { 'Content-Type': 'aplication/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: this.convertData(),
         })
 
@@ -91,7 +90,7 @@ class SignupForm extends Form {
     }
   }
 
-  convertData = () => {
+  convertData() {
     return JSON.stringify({
       [this.FIELD_NAME.EMAIL]:
         this.value[this.FIELD_NAME.EMAIL],

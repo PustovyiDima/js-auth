@@ -54,7 +54,8 @@ router.get('/signup', function (req, res) {
 })
 
 router.post('/signup', function (req, res) {
-  const { email, password, role } = req.body
+  let { email, password, role } = req.body
+  // console.debug(req.body)
 
   if (!email || !password || !role) {
     return res.status(400).json({
