@@ -78,3 +78,13 @@
     color: s.color(red) !important;
   }
 }
+
+.link {
+  color: s.color(main);
+
+  @include s.click;
+}
+
+.link__prefix {
+  color: s.color(light);
+}
